@@ -20,7 +20,7 @@
       --down: #B42318;
       --font: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
       --mono: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
-      --sp-1: 5px; --sp-2: 9px; --sp-3: 13px;
+      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px;
       --radius: 0px;
       --transition: 120ms ease;
     }
@@ -29,20 +29,20 @@
       background: var(--bg);
       color: var(--ink);
       font-family: var(--font);
-      font-size: 13px;
+      font-size: 17px;
       line-height: 1.4;
     }
 
     header {
-      height: 38px;
+      height: 46px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 var(--sp-3);
       border-bottom: 1px solid var(--hairline);
     }
-    header h1 { font-size: 13px; font-weight: 600; letter-spacing: .02em; }
-    .meta { font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+    header h1 { font-size: 18px; font-weight: 600; letter-spacing: .02em; }
+    .meta { font-size: 16px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
     main { display: grid; grid-template-columns: 1fr; }
     section { border-bottom: 1px solid var(--hairline); min-width: 0; }
@@ -53,13 +53,13 @@
     }
 
     .panel-head {
-      height: 26px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 var(--sp-3);
       border-bottom: 1px solid var(--hairline);
-      font-size: 10px;
+      font-size: 15px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .05em;
@@ -75,7 +75,7 @@
       display: flex;
       align-items: center;
       gap: var(--sp-2);
-      min-height: 27px;
+      min-height: 36px;
       padding: 3px var(--sp-3);
       text-decoration: none;
       color: var(--ink);
@@ -93,13 +93,13 @@
     .sub {
       margin-left: auto;
       flex-shrink: 0;
-      font-size: 10px;
+      font-size: 15px;
       color: var(--ink-3);
       white-space: nowrap;
     }
 
     @media (max-width: 768px) {
-      ul li a { min-height: 38px; }
+      ul li a { min-height: 44px; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -109,7 +109,7 @@
 <body>
   <header>
     <h1>MEDITATE</h1>
-    <span class="meta">12 searches · YouTube</span>
+    <span class="meta">13 searches · YouTube</span>
   </header>
 
   <main>
@@ -124,8 +124,6 @@
           <span class="t">Organic House</span><span class="sub">percussive</span></a></li>
         <li><a href="https://www.youtube.com/results?search_query=%22%D7%A1%D7%98+%D7%9E%D7%96%D7%A8%D7%97%D7%99%D7%AA%22&sp=EgQIBRgC" target="_blank" rel="noopener">
           <span class="t" lang="he" dir="rtl">סט מזרחית</span><span class="sub">mizrahit set</span></a></li>
-		<li><a href="https://www.youtube.com/results?search_query=%22Lo+Fi%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <span class="t">Lo-Fi</span><span class="sub">Tunes</span></a></li>
       </ul>
     </section>
 
@@ -144,7 +142,7 @@
     </section>
 
     <section>
-      <div class="panel-head"><span>Frequencies</span><span class="n">4</span></div>
+      <div class="panel-head"><span>Frequencies / Focus</span><span class="n">5</span></div>
       <ul>
         <li><a href="https://www.youtube.com/results?search_query=%22Hz%22&sp=EgQIBRgC" target="_blank" rel="noopener">
           <span class="t">Hz</span><span class="sub">pure tones</span></a></li>
@@ -154,6 +152,8 @@
           <span class="t">Bilateral</span><span class="sub">L–R</span></a></li>
         <li><a href="https://www.youtube.com/results?search_query=%228D%22&sp=EgQIBRgC" target="_blank" rel="noopener">
           <span class="t">8D</span><span class="sub">spatial</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22Lo+Fi%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Lo-Fi</span><span class="sub">mellow beats</span></a></li>
       </ul>
     </section>
   </main>
