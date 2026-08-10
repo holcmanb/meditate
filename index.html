@@ -2,284 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEDITATE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MEDITATE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f1115;
-      --surface: #181b21;
-      --border: #252830;
-      --text: #e8e6e1;
-      --muted: #7a7d85;
-      --accent: #c9a96e;
-      --accent-dim: rgba(201, 169, 110, 0.08);
+      --bg: #FFFFFF;
+      --ink: #111111;
+      --ink-2: #555555;
+      --ink-3: #999999;
+      --hairline: #E4E4E4;
+      --fill: #F6F6F6;
+      --inverse: #FFFFFF;
+      --up: #0A7A3D;
+      --down: #B42318;
+      --font: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+      --mono: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+      --sp-1: 5px; --sp-2: 9px; --sp-3: 13px;
+      --radius: 0px;
+      --transition: 120ms ease;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 60px 24px;
-    }
-
-    .container {
-      max-width: 600px;
-      width: 100%;
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.4;
     }
 
     header {
-      margin-bottom: 48px;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--accent);
-    }
-
-    .date {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 6px;
-      font-weight: 300;
-    }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--accent);
-      margin-top: 20px;
-    }
-
-    ol {
-      list-style: none;
-      counter-reset: item;
-    }
-
-    ol li {
-      counter-increment: item;
-    }
-
-    ol li a {
+      height: 38px;
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding: 20px 24px;
-      margin-bottom: 8px;
-      border-radius: 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      justify-content: space-between;
+      padding: 0 var(--sp-3);
+      border-bottom: 1px solid var(--hairline);
+    }
+    header h1 { font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+    .meta { font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+    main { display: grid; grid-template-columns: 1fr; }
+    section { border-bottom: 1px solid var(--hairline); min-width: 0; }
+    @media (min-width: 900px) {
+      main { grid-template-columns: 1fr 1fr 1fr; }
+      section { border-bottom: 0; border-right: 1px solid var(--hairline); }
+      section:last-child { border-right: 0; }
+    }
+
+    .panel-head {
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--sp-3);
+      border-bottom: 1px solid var(--hairline);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--ink-3);
+    }
+    .panel-head .n { font-weight: 400; font-variant-numeric: tabular-nums; }
+
+    ul { list-style: none; }
+    ul li { border-bottom: 1px solid var(--hairline); }
+    ul li:last-child { border-bottom: 0; }
+
+    ul li a {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      min-height: 27px;
+      padding: 3px var(--sp-3);
       text-decoration: none;
-      color: var(--text);
-      transition: all 0.2s ease;
-      position: relative;
+      color: var(--ink);
+      transition: background var(--transition);
     }
+    ul li a:hover { background: var(--fill); }
+    ul li a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 
-    ol li a:hover {
-      border-color: var(--accent);
-      background: var(--accent-dim);
-      transform: translateX(4px);
-    }
-
-    ol li a::before {
-      content: counter(item);
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: var(--accent-dim);
-      border: 1px solid rgba(201, 169, 110, 0.2);
-      color: var(--accent);
-      font-size: 0.8rem;
+    .t {
       font-weight: 500;
-    }
-
-    .link-content {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
-    }
-
-    .link-title {
-      font-weight: 500;
-      font-size: 0.95rem;
-      line-height: 1.3;
-    }
-
-    .link-source {
-      font-size: 0.75rem;
-      color: var(--muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .arrow {
+    .sub {
       margin-left: auto;
       flex-shrink: 0;
-      color: var(--muted);
-      transition: color 0.2s;
-      font-size: 1.1rem;
+      font-size: 10px;
+      color: var(--ink-3);
+      white-space: nowrap;
     }
 
-    ol li a:hover .arrow {
-      color: var(--accent);
+    @media (max-width: 768px) {
+      ul li a { min-height: 38px; }
     }
-
-    footer {
-      margin-top: 48px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      opacity: 0.5;
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
     }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header { animation: fadeUp 0.5s ease both; }
-    ol li:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
-    ol li:nth-child(2) { animation: fadeUp 0.5s ease 0.10s both; }
-    ol li:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
-    ol li:nth-child(4) { animation: fadeUp 0.5s ease 0.20s both; }
-    ol li:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
-    ol li:nth-child(6) { animation: fadeUp 0.5s ease 0.30s both; }
-    ol li:nth-child(7) { animation: fadeUp 0.5s ease 0.35s both; }
-    ol li:nth-child(8) { animation: fadeUp 0.5s ease 0.40s both; }
-    ol li:nth-child(9) { animation: fadeUp 0.5s ease 0.45s both; }
-    ol li:nth-child(10) { animation: fadeUp 0.5s ease 0.50s both; }
-    ol li:nth-child(11) { animation: fadeUp 0.5s ease 0.55s both; }
-    ol li:nth-child(12) { animation: fadeUp 0.5s ease 0.55s both; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>MEDITATE</h1>
-      <div class="date" id="today"></div>
-      <div class="divider"></div>
-    </header>
+  <header>
+    <h1>MEDITATE</h1>
+    <span class="meta">12 searches · YouTube</span>
+  </header>
 
-    <ol>
-        <li>
-        <a href="https://www.youtube.com/results?search_query=%22%D7%A1%D7%98+%D7%9E%D7%96%D7%A8%D7%97%D7%99%D7%AA%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">סט מזרחית</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-        <li>
-        <a href="https://www.youtube.com/results?search_query=%22epic+music%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Epic</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-        <li>
-        <a href="https://www.youtube.com/results?search_query=%22Ambience%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Ambience</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-        <li>
-        <a href="https://www.youtube.com/results?search_query=%22atmospheric%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Atmospheric</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-            <li>
-        <a href="https://www.youtube.com/results?search_query=%22sunset+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Sunset House</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-       <li>
-        <a href="https://www.youtube.com/results?search_query=%22Deep+Melodic+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Deep Melodic House</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%22Organic+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Organic House</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%22Hz%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Hz</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%22DEEP+FOCUS%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Deep Focus</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%22BILATERAL%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Bilateral</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%228D%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">8D</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.youtube.com/results?search_query=%22Symphony%22&sp=EgQIBRgC" target="_blank" rel="noopener">
-          <div class="link-content">
-            <span class="link-title">Symphony</span>
-          </div>
-          <span class="arrow">→</span>
-        </a>
-      </li>
-    </ol>
+  <main>
+    <section>
+      <div class="panel-head"><span>House / Sets</span><span class="n">4</span></div>
+      <ul>
+        <li><a href="https://www.youtube.com/results?search_query=%22sunset+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Sunset House</span><span class="sub">golden hour</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22Deep+Melodic+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Deep Melodic House</span><span class="sub">long builds</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22Organic+House%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Organic House</span><span class="sub">percussive</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22%D7%A1%D7%98+%D7%9E%D7%96%D7%A8%D7%97%D7%99%D7%AA%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t" lang="he" dir="rtl">סט מזרחית</span><span class="sub">mizrahit set</span></a></li>
+		<li><a href="https://www.youtube.com/results?search_query=%22Lo+Fi%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Lo-Fi</span><span class="sub">Tunes</span></a></li>
+      </ul>
+    </section>
 
-    <footer>Open each in order · top to bottom</footer>
-  </div>
+    <section>
+      <div class="panel-head"><span>Ambient / Orchestral</span><span class="n">4</span></div>
+      <ul>
+        <li><a href="https://www.youtube.com/results?search_query=%22Ambience%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Ambience</span><span class="sub">drones</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22atmospheric%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Atmospheric</span><span class="sub">texture</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22epic+music%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Epic</span><span class="sub">orchestral</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22Symphony%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Symphony</span><span class="sub">full form</span></a></li>
+      </ul>
+    </section>
 
-  <script>
-    const d = new Date();
-    const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('today').textContent = d.toLocaleDateString('en-US', opts);
-  </script>
+    <section>
+      <div class="panel-head"><span>Frequencies</span><span class="n">4</span></div>
+      <ul>
+        <li><a href="https://www.youtube.com/results?search_query=%22Hz%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Hz</span><span class="sub">pure tones</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22DEEP+FOCUS%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Deep Focus</span><span class="sub">wordless</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%22BILATERAL%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">Bilateral</span><span class="sub">L–R</span></a></li>
+        <li><a href="https://www.youtube.com/results?search_query=%228D%22&sp=EgQIBRgC" target="_blank" rel="noopener">
+          <span class="t">8D</span><span class="sub">spatial</span></a></li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
