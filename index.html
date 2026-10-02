@@ -1,88 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MEDITATE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Painel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* ---------- Tokens ---------- */
     :root {
+      color-scheme: light;
       --bg: #FFFFFF;
-      --ink: #111111;
-      --ink-2: #555555;
-      --ink-3: #999999;
+      --ink: #000000;
+      --ink-3: #6B6B6B;      /* texto secundário: 5,3:1 sobre o fundo */
       --hairline: #E4E4E4;
       --fill: #F6F6F6;
-      --inverse: #FFFFFF;
-      --up: #0A7A3D;
-      --down: #B42318;
       --font: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
-      --mono: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
-      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px;
-      --radius: 0px;
+      --pad: 12px;
+      --gap: 8px;
       --transition: 120ms ease;
+
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
     body {
       background: var(--bg);
       color: var(--ink);
       font-family: var(--font);
-      font-size: 17px;
+      font-size: 1.0625rem;
       line-height: 1.4;
     }
 
-    header {
-      height: 46px;
+    /* ---------- Cabeçalho ---------- */
+    .top {
+      min-height: 46px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 var(--sp-3);
+      gap: var(--pad);
+      padding: 0 var(--pad);
       border-bottom: 1px solid var(--hairline);
     }
-    header h1 { font-size: 18px; font-weight: 600; letter-spacing: .02em; }
-    .meta { font-size: 16px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
-
-    main { display: grid; grid-template-columns: 1fr; }
-    section { border-bottom: 1px solid var(--hairline); min-width: 0; }
-    @media (min-width: 900px) {
-      main { grid-template-columns: 1fr 1fr; }
-      section { border-bottom: 0; border-right: 1px solid var(--hairline); }
-      section:last-child { border-right: 0; }
+    .top h1 { font-size: 1.125rem; font-weight: 600; letter-spacing: .02em; }
+    .meta {
+      font-size: 1rem;
+      color: var(--ink-3);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
+    /* ---------- Grade de painéis ----------
+       Aceita qualquer quantidade: cada novo <section class="panel">
+       ocupa a próxima coluna e quebra de linha sozinho. */
+    .panels {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      gap: 1px;
+    }
+    .panel {
+      min-width: 0;
+      /* linhas finas à direita e abaixo, desenhadas dentro do gap */
+      box-shadow:
+        1px 0 0 var(--hairline),
+        0 1px 0 var(--hairline),
+        1px 1px 0 var(--hairline);
+    }
     .panel-head {
-      height: 34px;
+      min-height: 34px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 var(--sp-3);
+      padding: 0 var(--pad);
       border-bottom: 1px solid var(--hairline);
-      font-size: 15px;
+      font-size: .9375rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .05em;
       color: var(--ink-3);
     }
-    .panel-head .n { font-weight: 400; font-variant-numeric: tabular-nums; }
 
-    ul { list-style: none; }
-    ul li { border-bottom: 1px solid var(--hairline); }
-    ul li:last-child { border-bottom: 0; }
+    /* ---------- Listas ----------
+       <ol class="list">: em ordem, com letra (A, B, C…) vinda da posição.
+       <ul class="list">: sem ordem, sem letra.
+       Para reordenar, basta mover a linha <li>. */
+    .list { list-style: none; counter-reset: item; }
+    .list li { counter-increment: item; border-bottom: 1px solid var(--hairline); }
+    .list li:last-child { border-bottom: 0; }
 
-    ul li a {
+    .row {
       display: flex;
       align-items: center;
-      gap: var(--sp-2);
+      gap: var(--gap);
       min-height: 36px;
-      padding: 3px var(--sp-3);
+      padding: 3px var(--pad);
       text-decoration: none;
       color: var(--ink);
       transition: background var(--transition);
     }
-    ul li a:hover { background: var(--fill); }
-    ul li a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+    ol.list .row::before {
+      content: counter(item, upper-alpha);
+      flex: 0 0 2ch;
+      color: var(--ink-3);
+    }
+    .row:hover { background: var(--fill); }
+    .row:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 
     .t {
       font-weight: 500;
@@ -90,16 +115,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .sub {
-      margin-left: auto;
-      flex-shrink: 0;
-      font-size: 15px;
-      color: var(--ink-3);
-      white-space: nowrap;
-    }
 
-    @media (max-width: 768px) {
-      ul li a { min-height: 44px; }
+    @media (pointer: coarse) {
+      .row { min-height: 44px; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -107,60 +125,99 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>MEDITATE</h1>
-   
+  <header class="top">
+    <h1>PAINEL</h1>
+    <time class="meta" id="agora"></time>
   </header>
 
-  <main>
-    <section>
-      <div class="panel-head"><span>House / Sets</span></div>
-      <ul>
+  <main class="panels">
 
-<li><a href="https://www.youtube.com/results?search_query=%22Hypnotic%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Hypnotic</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22melodic+house%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Melodic House</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22progressive+house%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Progressive House</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22Agents+Of+Time%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Agents Of Time</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22anjunadeep%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Anjunadeep</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22Böhmer%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Ben Böhmer</span></a></li>
-          <li><a href="https://www.youtube.com/results?search_query=%22Boris+Brejcha%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Boris Brejcha</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22lane+8%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Lane 8</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22nora+en+pure%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Nora En Pure</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22RÜFÜS%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Rüfüs Du Sol</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22Bodzin%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Stephan Bodzin</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22Tinlicker%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Tinlicker</span></a></li>
-<li><a href="https://www.youtube.com/results?search_query=%22Yotto%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-  <span class="t" lang="en" dir="ltr">Yotto</span></a></li>
-        <li><a href="https://www.youtube.com/results?search_query=%22%D7%9E%D7%96%D7%A8%D7%97%D7%99%D7%AA%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-          <span class="t" lang="he" dir="rtl">מזרחית</span></a></li>
+    <section class="panel">
+      <h2 class="panel-head">Leituras / Manhã</h2>
+      <ol class="list">
+        <li><a class="row" href="https://www.bomdiamercado.com.br/minha-conta/morning-call/" target="_blank" rel="noopener">
+          <span class="t">BDM</span></a></li>
+        <li><a class="row" href="https://vitalknowledge.net/?category=morning" target="_blank" rel="noopener">
+          <span class="t">Vital Dawn</span></a></li>
+        <li><a class="row" href="https://www.ft.com/firstft" target="_blank" rel="noopener">
+          <span class="t">FirstFT</span></a></li>
+        <li><a class="row" href="https://www.semafor.com/newsletters/flagship/latest" target="_blank" rel="noopener">
+          <span class="t">Semafor Flagship</span></a></li>
+        <li><a class="row" href="https://www.thefp.com/s/the-front-page" target="_blank" rel="noopener">
+          <span class="t">The Free Press</span></a></li>
+        <li><a class="row" href="https://thedispatch.com/newsletter/morning" target="_blank" rel="noopener">
+          <span class="t">The Morning Dispatch</span></a></li>
+        <li><a class="row" href="https://moncompte.lexpress.fr/newsletters/nl_lexpress_quotidienne.html" target="_blank" rel="noopener">
+          <span class="t">L'Express</span></a></li>
+        <li><a class="row" href="https://www.timesofisrael.com/the-daily-edition/" target="_blank" rel="noopener">
+          <span class="t">Times of Israel</span></a></li>
+      </ol>
+    </section>
+
+    <!-- O que ouvir: cada linha é uma busca no YouTube.
+         data-yt = termo buscado; o texto do <span> = nome exibido.
+         O filtro da busca é definido uma única vez, no script do fim da página. -->
+    <section class="panel">
+      <h2 class="panel-head">House / Sets</h2>
+      <ul class="list">
+        <li><a class="row" data-yt="Hypnotic"><span class="t">Hypnotic</span></a></li>
+        <li><a class="row" data-yt="melodic house"><span class="t">Melodic House</span></a></li>
+        <li><a class="row" data-yt="progressive house"><span class="t">Progressive House</span></a></li>
+        <li><a class="row" data-yt="Agents Of Time"><span class="t">Agents Of Time</span></a></li>
+        <li><a class="row" data-yt="anjunadeep"><span class="t">Anjunadeep</span></a></li>
+        <li><a class="row" data-yt="Böhmer"><span class="t">Ben Böhmer</span></a></li>
+        <li><a class="row" data-yt="Boris Brejcha"><span class="t">Boris Brejcha</span></a></li>
+        <li><a class="row" data-yt="lane 8"><span class="t">Lane 8</span></a></li>
+        <li><a class="row" data-yt="nora en pure"><span class="t">Nora En Pure</span></a></li>
+        <li><a class="row" data-yt="RÜFÜS"><span class="t">Rüfüs Du Sol</span></a></li>
+        <li><a class="row" data-yt="Bodzin"><span class="t">Stephan Bodzin</span></a></li>
+        <li><a class="row" data-yt="Tinlicker"><span class="t">Tinlicker</span></a></li>
+        <li><a class="row" data-yt="Yotto"><span class="t">Yotto</span></a></li>
+        <li><a class="row" data-yt="מזרחית"><span class="t" lang="he" dir="rtl">מזרחית</span></a></li>
       </ul>
     </section>
 
-    <section>
-      <div class="panel-head"><span>Frequencies / Focus</span></div>
-      <ul>
-        <li><a href="https://www.youtube.com/results?search_query=%22Hz%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-          <span class="t">Hz</span></a></li>
-        <li><a href="https://www.youtube.com/results?search_query=%22FOCUS+DEEP%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-          <span class="t">Focus</span></a></li>
-        <li><a href="https://www.youtube.com/results?search_query=%22ADHD+DEEP%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-          <span class="t">ADHD</span></a></li>
-        <li><a href="https://www.youtube.com/results?search_query=%22ambient%22&sp=CAMSBggEEAEYAg%253D%253D" target="_blank" rel="noopener">
-          <span class="t">Ambient</span></a></li>
+    <section class="panel">
+      <h2 class="panel-head">Frequencies / Focus</h2>
+      <ul class="list">
+        <li><a class="row" data-yt="Hz"><span class="t">Hz</span></a></li>
+        <li><a class="row" data-yt="FOCUS DEEP"><span class="t">Focus</span></a></li>
+        <li><a class="row" data-yt="ADHD DEEP"><span class="t">ADHD</span></a></li>
+        <li><a class="row" data-yt="ambient"><span class="t">Ambient</span></a></li>
       </ul>
     </section>
+
+    <!-- Novo painel: copie um <section class="panel"> inteiro e cole aqui. -->
+
   </main>
+
+  <script>
+    // Links do YouTube: busca pelo termo exato, com o filtro abaixo.
+    // Filtro atual: mais vistos, enviados neste mês, só vídeos, mais de 20 minutos.
+    (function () {
+      var FILTRO = 'CAMSBggEEAEYAg%253D%253D';
+      document.querySelectorAll('a[data-yt]').forEach(function (a) {
+        var termo = encodeURIComponent('"' + a.dataset.yt + '"').replace(/%20/g, '+');
+        a.href = 'https://www.youtube.com/results?search_query=' + termo + '&sp=' + FILTRO;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      });
+    })();
+
+    // Data e hora no cabeçalho, ex.: "sex 02/10 07:42"
+    (function () {
+      var el = document.getElementById('agora');
+      var dias = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+      function dois(n) { return String(n).padStart(2, '0'); }
+      function atualizar() {
+        var d = new Date();
+        el.textContent = dias[d.getDay()] + ' ' + dois(d.getDate()) + '/' + dois(d.getMonth() + 1) +
+          ' ' + dois(d.getHours()) + ':' + dois(d.getMinutes());
+        el.dateTime = d.toISOString();
+      }
+      atualizar();
+      setInterval(atualizar, 15000);
+    })();
+  </script>
 </body>
 </html>
