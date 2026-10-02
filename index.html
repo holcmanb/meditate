@@ -116,8 +116,35 @@
       text-overflow: ellipsis;
     }
 
+    /* ---------- Linha com três saídas ----------
+       Nome à esquerda; à direita, os links sempre / ano / mês,
+       criados pelo script do fim da página. */
+    .multi {
+      display: flex;
+      align-items: stretch;
+      gap: var(--gap);
+      min-height: 37px;      /* 36 + 1 da linha divisória, igual às leituras */
+      padding-left: var(--pad);
+      padding-right: calc(var(--pad) - var(--gap));
+    }
+    .multi .t { align-self: center; }
+    .outs { margin-left: auto; display: flex; flex-shrink: 0; }
+    .outs a {
+      display: flex;
+      align-items: center;
+      padding: 0 var(--gap);
+      font-size: .9375rem;
+      color: var(--ink-3);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+    }
+    .outs a:hover { background: var(--fill); color: var(--ink); }
+    .outs a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
     @media (pointer: coarse) {
       .row { min-height: 44px; }
+      .multi { min-height: 45px; }
+      .outs a { padding: 0 10px; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -154,36 +181,37 @@
       </ol>
     </section>
 
-    <!-- O que ouvir: cada linha é uma busca no YouTube.
+    <!-- O que ouvir: cada linha é uma busca no YouTube com três saídas.
          data-yt = termo buscado; o texto do <span> = nome exibido.
-         O filtro da busca é definido uma única vez, no script do fim da página. -->
+         Os três períodos (sempre / ano / mês) são definidos uma única vez,
+         no script do fim da página. -->
     <section class="panel">
       <h2 class="panel-head">House / Sets</h2>
       <ul class="list">
-        <li><a class="row" data-yt="Hypnotic"><span class="t">Hypnotic</span></a></li>
-        <li><a class="row" data-yt="melodic house"><span class="t">Melodic House</span></a></li>
-        <li><a class="row" data-yt="progressive house"><span class="t">Progressive House</span></a></li>
-        <li><a class="row" data-yt="Agents Of Time"><span class="t">Agents Of Time</span></a></li>
-        <li><a class="row" data-yt="anjunadeep"><span class="t">Anjunadeep</span></a></li>
-        <li><a class="row" data-yt="Böhmer"><span class="t">Ben Böhmer</span></a></li>
-        <li><a class="row" data-yt="Boris Brejcha"><span class="t">Boris Brejcha</span></a></li>
-        <li><a class="row" data-yt="lane 8"><span class="t">Lane 8</span></a></li>
-        <li><a class="row" data-yt="nora en pure"><span class="t">Nora En Pure</span></a></li>
-        <li><a class="row" data-yt="RÜFÜS"><span class="t">Rüfüs Du Sol</span></a></li>
-        <li><a class="row" data-yt="Bodzin"><span class="t">Stephan Bodzin</span></a></li>
-        <li><a class="row" data-yt="Tinlicker"><span class="t">Tinlicker</span></a></li>
-        <li><a class="row" data-yt="Yotto"><span class="t">Yotto</span></a></li>
-        <li><a class="row" data-yt="מזרחית"><span class="t" lang="he" dir="rtl">מזרחית</span></a></li>
+        <li class="multi" data-yt="Hypnotic"><span class="t">Hypnotic</span></li>
+        <li class="multi" data-yt="melodic house"><span class="t">Melodic House</span></li>
+        <li class="multi" data-yt="progressive house"><span class="t">Progressive House</span></li>
+        <li class="multi" data-yt="Agents Of Time"><span class="t">Agents Of Time</span></li>
+        <li class="multi" data-yt="anjunadeep"><span class="t">Anjunadeep</span></li>
+        <li class="multi" data-yt="Böhmer"><span class="t">Ben Böhmer</span></li>
+        <li class="multi" data-yt="Boris Brejcha"><span class="t">Boris Brejcha</span></li>
+        <li class="multi" data-yt="lane 8"><span class="t">Lane 8</span></li>
+        <li class="multi" data-yt="nora en pure"><span class="t">Nora En Pure</span></li>
+        <li class="multi" data-yt="RÜFÜS"><span class="t">Rüfüs Du Sol</span></li>
+        <li class="multi" data-yt="Bodzin"><span class="t">Stephan Bodzin</span></li>
+        <li class="multi" data-yt="Tinlicker"><span class="t">Tinlicker</span></li>
+        <li class="multi" data-yt="Yotto"><span class="t">Yotto</span></li>
+        <li class="multi" data-yt="מזרחית"><span class="t" lang="he" dir="rtl">מזרחית</span></li>
       </ul>
     </section>
 
     <section class="panel">
       <h2 class="panel-head">Frequencies / Focus</h2>
       <ul class="list">
-        <li><a class="row" data-yt="Hz"><span class="t">Hz</span></a></li>
-        <li><a class="row" data-yt="FOCUS DEEP"><span class="t">Focus</span></a></li>
-        <li><a class="row" data-yt="ADHD DEEP"><span class="t">ADHD</span></a></li>
-        <li><a class="row" data-yt="ambient"><span class="t">Ambient</span></a></li>
+        <li class="multi" data-yt="Hz"><span class="t">Hz</span></li>
+        <li class="multi" data-yt="FOCUS DEEP"><span class="t">Focus</span></li>
+        <li class="multi" data-yt="ADHD DEEP"><span class="t">ADHD</span></li>
+        <li class="multi" data-yt="ambient"><span class="t">Ambient</span></li>
       </ul>
     </section>
 
@@ -192,15 +220,29 @@
   </main>
 
   <script>
-    // Links do YouTube: busca pelo termo exato, com o filtro abaixo.
-    // Filtro atual: mais vistos, enviados neste mês, só vídeos, mais de 20 minutos.
+    // Links do YouTube: busca pelo termo exato, em três períodos.
+    // Em todos: prioridade por popularidade, só vídeos, mais de 20 minutos.
     (function () {
-      var FILTRO = 'CAMSBggEEAEYAg%253D%253D';
-      document.querySelectorAll('a[data-yt]').forEach(function (a) {
-        var termo = encodeURIComponent('"' + a.dataset.yt + '"').replace(/%20/g, '+');
-        a.href = 'https://www.youtube.com/results?search_query=' + termo + '&sp=' + FILTRO;
-        a.target = '_blank';
-        a.rel = 'noopener';
+      var PERIODOS = [
+        { nome: 'sempre', leitura: 'qualquer data', sp: 'CAMSBBABGAI%253D' },
+        { nome: 'ano',    leitura: 'este ano',      sp: 'CAMSBggFEAEYAg%253D%253D' },
+        { nome: 'mês',    leitura: 'este mês',      sp: 'CAMSBggEEAEYAg%253D%253D' }
+      ];
+      document.querySelectorAll('[data-yt]').forEach(function (linha) {
+        var termo = encodeURIComponent('"' + linha.dataset.yt + '"').replace(/%20/g, '+');
+        var titulo = linha.textContent.trim();
+        var grupo = document.createElement('span');
+        grupo.className = 'outs';
+        PERIODOS.forEach(function (p) {
+          var a = document.createElement('a');
+          a.href = 'https://www.youtube.com/results?search_query=' + termo + '&sp=' + p.sp;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = p.nome;
+          a.setAttribute('aria-label', titulo + ', ' + p.leitura);
+          grupo.appendChild(a);
+        });
+        linha.appendChild(grupo);
       });
     })();
 
