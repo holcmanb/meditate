@@ -59,7 +59,7 @@
        ocupa a próxima coluna e quebra de linha sozinho. */
     .panels {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: 1px;
     }
     .panel {
@@ -183,6 +183,7 @@
 
     <!-- O que ouvir: cada linha é uma busca no YouTube com três saídas.
          data-yt = termo buscado; o texto do <span> = nome exibido.
+         O termo é buscado entre aspas (expressão exata); com data-sem-aspas, sem elas.
          Os três períodos (sempre / ano / mês) são definidos uma única vez,
          no script do fim da página. -->
     <section class="panel">
@@ -190,6 +191,7 @@
       <ul class="list">
         <li class="multi" data-yt="Hypnotic"><span class="t">Hypnotic</span></li>
         <li class="multi" data-yt="melodic house"><span class="t">Melodic House</span></li>
+        <li class="multi" data-yt="Minimal Melodic" data-sem-aspas><span class="t">Minimal Melodic</span></li>
         <li class="multi" data-yt="progressive house"><span class="t">Progressive House</span></li>
         <li class="multi" data-yt="Agents Of Time"><span class="t">Agents Of Time</span></li>
         <li class="multi" data-yt="anjunadeep"><span class="t">Anjunadeep</span></li>
@@ -215,6 +217,14 @@
       </ul>
     </section>
 
+    <section class="panel">
+      <h2 class="panel-head">Links importantes</h2>
+      <ul class="list">
+        <li><a class="row" href="https://snapany.com/" target="_blank" rel="noopener">
+          <span class="t">SnapAny</span></a></li>
+      </ul>
+    </section>
+
     <!-- Novo painel: copie um <section class="panel"> inteiro e cole aqui. -->
 
   </main>
@@ -229,7 +239,8 @@
         { nome: 'mês',    leitura: 'este mês',      sp: 'CAMSBggEEAEYAg%253D%253D' }
       ];
       document.querySelectorAll('[data-yt]').forEach(function (linha) {
-        var termo = encodeURIComponent('"' + linha.dataset.yt + '"').replace(/%20/g, '+');
+        var busca = linha.hasAttribute('data-sem-aspas') ? linha.dataset.yt : '"' + linha.dataset.yt + '"';
+        var termo = encodeURIComponent(busca).replace(/%20/g, '+');
         var titulo = linha.textContent.trim();
         var grupo = document.createElement('span');
         grupo.className = 'outs';
