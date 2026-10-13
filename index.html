@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -116,9 +117,9 @@
       text-overflow: ellipsis;
     }
 
-    /* ---------- Linha com três saídas ----------
-       Nome à esquerda; à direita, os links sempre / ano / mês,
-       criados pelo script do fim da página. */
+    /* ---------- Linha com saídas ----------
+       Nome à esquerda; à direita, os links (sempre / ano / mês no YouTube,
+       lista / top no X), criados pelo script do fim da página. */
     .multi {
       display: flex;
       align-items: stretch;
@@ -170,6 +171,8 @@
           <span class="t">FirstFT</span></a></li>
         <li><a class="row" href="https://www.semafor.com/newsletters/flagship/latest" target="_blank" rel="noopener">
           <span class="t">Semafor Flagship</span></a></li>
+        <li><a class="row" href="https://www.tabletmag.com/the-scroll" target="_blank" rel="noopener">
+          <span class="t">Tablet (The Scroll)</span></a></li>
         <li><a class="row" href="https://www.thefp.com/s/the-front-page" target="_blank" rel="noopener">
           <span class="t">The Free Press</span></a></li>
         <li><a class="row" href="https://thedispatch.com/newsletter/morning" target="_blank" rel="noopener">
@@ -181,6 +184,20 @@
       </ol>
     </section>
 
+    <!-- X: cada linha é uma lista sua, com duas saídas.
+         data-x = número da lista (o que aparece em x.com/i/lists/NÚMERO)
+         data-min = mínimo de reposts da busca "top"
+         As saídas (lista / top) são criadas pelo script do fim da página. -->
+    <section class="panel">
+      <h2 class="panel-head">X / Listas</h2>
+      <ul class="list">
+        <li class="multi" data-x="1960292163037585743" data-min="25"><span class="t">Futebol Brasil</span></li>
+        <li class="multi" data-x="1685976230691033088" data-min="25"><span class="t">NFL</span></li>
+        <li class="multi" data-x="1684311286274723840" data-min="3"><span class="t">F1</span></li>
+        <li class="multi" data-x="761148456668958720" data-min="3"><span class="t">Tennis</span></li>
+      </ul>
+    </section>
+
     <!-- O que ouvir: cada linha é uma busca no YouTube com três saídas.
          data-yt = termo buscado; o texto do <span> = nome exibido.
          O termo é buscado entre aspas (expressão exata); com data-sem-aspas, sem elas.
@@ -189,17 +206,20 @@
     <section class="panel">
       <h2 class="panel-head">House / Sets</h2>
       <ul class="list">
-        <li class="multi" data-yt="Minimal Melodic Dark DJ" data-sem-aspas><span class="t">Minimal Melodic</span></li>
-        <li class="multi" data-yt="Mathew Jonson"><span class="t">Mathew Jonson</span></li>
-		<li class="multi" data-yt="Dominik Eulberg"><span class="t">Dominik Eulberg</span></li>
-		<li class="multi" data-yt="Jody Wisternoff"><span class="t">Jody Wisternoff</span></li>
-		<li class="multi" data-yt="Marsh DJMix" data-sem-aspas><span class="t">Marsh</span></li>
-		<li class="multi" data-yt="Yotto"><span class="t">Yotto</span></li>
-		<li class="multi" data-yt="Nora En Pure"><span class="t">Nora En Pure</span></li>
-		<li class="multi" data-yt="Stephan Bodzin"><span class="t">Stephan Bodzin</span></li>
-		<li class="multi" data-yt="Boris Brejcha"><span class="t">Boris Brejcha</span></li>
-		<li class="multi" data-yt="Miss Monique"><span class="t">Miss Monique</span></li>
-		<li class="multi" data-yt="Hozho"><span class="t">Hozho</span></li>
+        <li class="multi" data-yt="Hypnotic"><span class="t">Hypnotic</span></li>
+        <li class="multi" data-yt="melodic house"><span class="t">Melodic House</span></li>
+        <li class="multi" data-yt="Minimal Melodic" data-sem-aspas><span class="t">Minimal Melodic</span></li>
+        <li class="multi" data-yt="progressive house"><span class="t">Progressive House</span></li>
+        <li class="multi" data-yt="Agents Of Time"><span class="t">Agents Of Time</span></li>
+        <li class="multi" data-yt="anjunadeep"><span class="t">Anjunadeep</span></li>
+        <li class="multi" data-yt="Böhmer"><span class="t">Ben Böhmer</span></li>
+        <li class="multi" data-yt="Boris Brejcha"><span class="t">Boris Brejcha</span></li>
+        <li class="multi" data-yt="lane 8"><span class="t">Lane 8</span></li>
+        <li class="multi" data-yt="nora en pure"><span class="t">Nora En Pure</span></li>
+        <li class="multi" data-yt="RÜFÜS"><span class="t">Rüfüs Du Sol</span></li>
+        <li class="multi" data-yt="Bodzin"><span class="t">Stephan Bodzin</span></li>
+        <li class="multi" data-yt="Tinlicker"><span class="t">Tinlicker</span></li>
+        <li class="multi" data-yt="Yotto"><span class="t">Yotto</span></li>
         <li class="multi" data-yt="מזרחית"><span class="t" lang="he" dir="rtl">מזרחית</span></li>
       </ul>
     </section>
@@ -208,8 +228,8 @@
       <h2 class="panel-head">Frequencies / Focus</h2>
       <ul class="list">
         <li class="multi" data-yt="Hz"><span class="t">Hz</span></li>
-        <li class="multi" data-yt="FOCUS DEEP" data-sem-aspas><span class="t">Focus</span></li>
-        <li class="multi" data-yt="ADHD DEEP" data-sem-aspas><span class="t">ADHD</span></li>
+        <li class="multi" data-yt="FOCUS DEEP"><span class="t">Focus</span></li>
+        <li class="multi" data-yt="ADHD DEEP"><span class="t">ADHD</span></li>
         <li class="multi" data-yt="ambient"><span class="t">Ambient</span></li>
       </ul>
     </section>
@@ -254,6 +274,43 @@
       });
     })();
 
+    // Listas do X: a lista em si e uma busca dentro dela.
+    //   lista = a lista inteira
+    //   top   = posts da lista com o mínimo de reposts (data-min), sem limite de data,
+    //           do mais recente para o mais antigo
+    (function () {
+      var EXTRA = 'include:nativeretweets';      // operadores a mais na busca
+      function busca(id, min) {
+        var q = ['list:' + id, min > 0 ? 'min_retweets:' + min : '', EXTRA]
+          .filter(Boolean).join(' ');
+        return 'https://x.com/search?q=' + encodeURIComponent(q) + '&src=typed_query&f=live';
+      }
+      document.querySelectorAll('[data-x]').forEach(function (linha) {
+        var id = linha.dataset.x;
+        var min = parseInt(linha.dataset.min, 10) || 0;
+        var titulo = linha.textContent.trim();
+        var saidas = [
+          { nome: 'lista', leitura: 'a lista inteira',
+            url: 'https://x.com/i/lists/' + id },
+          { nome: 'top', leitura: (min > 0 ? 'posts com ' + min + ' reposts ou mais' : 'todos os posts') + ', sem limite de data',
+            url: busca(id, min) }
+        ];
+        var grupo = document.createElement('span');
+        grupo.className = 'outs';
+        saidas.forEach(function (s) {
+          var a = document.createElement('a');
+          a.href = s.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = s.nome;
+          a.title = s.leitura;
+          a.setAttribute('aria-label', titulo + ', ' + s.leitura);
+          grupo.appendChild(a);
+        });
+        linha.appendChild(grupo);
+      });
+    })();
+
     // Data e hora no cabeçalho, ex.: "sex 02/10 07:42"
     (function () {
       var el = document.getElementById('agora');
@@ -271,3 +328,5 @@
   </script>
 </body>
 </html>
+
+</body></html>
